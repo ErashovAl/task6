@@ -32,6 +32,11 @@ class Student:
                 lector.grades[course] = [grade]
         else:
             return 'Ошибка'
+     
+    def __lt__(self, other):
+        if isinstance(other, Student):
+            return self.average_grade() > other.average_grade()
+        return ('Ошибка')
 
 class Mentor:
     def __init__(self, name, surname):
@@ -57,6 +62,11 @@ class Lecturer(Mentor):
     def __str__(self):
         return (f'\nЛектор\n{"Имя:":.<27} {self.name}\n{"Фамилия:":.<27} {self.surname}\n'
                 f'{"Средняя оценка за лекции:":.<27} {self.average_grade()}\n')
+
+    def __lt__(self, other):
+        if isinstance(other, Lecturer):
+            return self.average_grade() > other.average_grade()
+        return ('Ошибка')
                 
 
 class Reviewer(Mentor):
@@ -70,7 +80,7 @@ class Reviewer(Mentor):
             return 'Ошибка'
 
     def __str__(self):
-        return (f'\nРевьюер\n{"Имя:" :.<27} {self.name}\n{"Фамилия:":.<27} {self.surname}\n')
+        return (f'\nРевьюер\n{"Имя:" :.<27} {self.name}\n{"Фамилия:":.<27} {self.surname}\n')   
 
 def stud_course_grade(students, course):
         sum_grades = 0
@@ -93,6 +103,10 @@ def lecturer_course_grade(lectors, course): #средняя оц.лекторо�
                     grade_num += 1
         total = round(sum_grades / grade_num, 1) 
         return (f'Средняя оценка за курс {course} всех лекторов {total}\n')
+
+# def __lt__(self, other):
+#     if self__class__ == other__class__:
+#         return len(self) < len(other)
 
 
 first_student = Student('Richard', 'Rou', 'male')
@@ -138,3 +152,6 @@ print(super_reviewer)
 
 print(stud_course_grade([first_student, second_student],'Python'))
 print(lecturer_course_grade([super_lector, cool_lector],'Python'))
+
+print(cool_lector > super_lector)
+print(first_student < second_student)
